@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGAP SARPRAS SD - Pelaporan Kerusakan Sarpras</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--or:#f97316;--or2:#ea580c;--gr:#16a34a;--gr2:#15803d;--dk:#14532d;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans','Segoe UI',sans-serif;}
+html{scroll-behavior:smooth;} body{background:#fff;color:#1e293b;overflow-x:hidden;} a{text-decoration:none;color:inherit;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 5%;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:2px solid #e7f5ea;}
+.brand{display:flex;gap:12px;align-items:center;} .brand .logo{width:48px;height:48px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:4px;box-shadow:0 5px 18px rgba(20,83,45,.12);}.brand .logo img{width:100%;height:100%;object-fit:contain;}
+.brand h1{font-size:16px;font-weight:800;color:var(--dk);} .brand p{font-size:11px;color:#64748b;}
+.nav-links{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600;color:var(--dk);}
+.nav-links a:hover{color:var(--or);} .nav-links .login-btn{border:2px solid var(--or);color:var(--or2);padding:8px 24px;border-radius:999px;font-weight:700;} .nav-links .login-btn:hover{background:var(--or);color:#fff;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:110px 20px 70px;background:#fff;}
+.hero .bubble{position:absolute;border-radius:50%;filter:blur(70px);opacity:.18;} .b1{width:340px;height:340px;background:var(--or);top:-60px;right:-60px;} .b2{width:300px;height:300px;background:var(--gr);bottom:-60px;left:-60px;}
+.hero .em{width:142px;height:142px;display:flex;align-items:center;justify-content:center;padding:12px;border-radius:32px;background:rgba(255,255,255,.9);border:1px solid #e2e8f0;box-shadow:0 24px 60px rgba(20,83,45,.14);animation:float 4s ease-in-out infinite;}.hero .em img{width:100%;height:100%;object-fit:contain;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero h2{font-size:clamp(2rem,6vw,4rem);font-weight:800;color:var(--dk);margin:20px 0 12px;} .hero h2 span{color:var(--or);}
+.hero .sub{font-size:clamp(.95rem,2vw,1.2rem);color:#475569;max-width:720px;} .hero .tag{margin-top:12px;font-style:italic;color:var(--or2);font-weight:600;}
+.cta-row{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.cta{background:var(--or);color:#fff;font-weight:800;padding:15px 42px;border-radius:999px;box-shadow:0 10px 30px rgba(249,115,22,.35);transition:.25s;} .cta:hover{transform:translateY(-3px);background:var(--or2);}
+.ghost{border:2px solid var(--gr);color:var(--gr2);padding:14px 34px;border-radius:999px;font-weight:700;} .ghost:hover{background:var(--gr);color:#fff;}
+section{padding:80px 6%;} .sec-title{text-align:center;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;color:var(--dk);margin-bottom:12px;} .sec-title span{color:var(--or);}
+.sec-sub{text-align:center;color:#64748b;margin-bottom:44px;font-size:14px;}
+.stats{background:linear-gradient(135deg,var(--gr2),var(--gr));}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;max-width:1000px;margin:0 auto;}
+.stat{text-align:center;padding:26px 10px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;}
+.stat .num{font-size:40px;font-weight:800;color:#ffedd5;} .stat .lbl{font-size:13px;opacity:.9;margin-top:6px;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:1100px;margin:0 auto;}
+.feat{background:#fff;border:2px solid #e7f5ea;border-radius:18px;padding:28px;transition:.3s;box-shadow:0 2px 10px rgba(20,83,45,.06);}
+.feat:hover{transform:translateY(-6px);border-color:var(--or);box-shadow:0 16px 40px rgba(249,115,22,.15);}
+.feat .ic{width:54px;height:54px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;}
+.feat h3{font-size:16px;color:var(--dk);margin-bottom:8px;} .feat p{font-size:13px;color:#64748b;line-height:1.6;}
+footer{background:var(--dk);color:#fff;text-align:center;padding:32px 20px;font-size:13px;} footer b{color:#ffedd5;}
+.reveal{opacity:0;transform:translateY(26px);transition:.7s;} .reveal.on{opacity:1;transform:none;}
+
+/* Penyegaran visual dan responsif */
+body{background:linear-gradient(180deg,#f8fcff 0%,#fff 58%,#f5fbf6 100%)}
+.nav{box-shadow:0 6px 24px rgba(15,23,42,.05);padding-top:12px;padding-bottom:12px}
+.hero{background:radial-gradient(ellipse at 50% 30%,rgba(22,163,74,.07),transparent 45%),linear-gradient(135deg,#fff 0%,#f7fcff 55%,#fff8f1 100%)}
+.hero h2{letter-spacing:-1.5px;line-height:1.12}.hero .sub{line-height:1.8}
+.cta,.ghost{transition:transform .22s,box-shadow .22s}.cta:hover,.ghost:hover{transform:translateY(-3px)}
+.feat{border:1px solid #e2e8f0;box-shadow:0 10px 28px rgba(15,23,42,.045)}
+.feat .ic{background:linear-gradient(135deg,#fff0e4,#e8f8ed)}
+@media(max-width:640px){.nav{padding:10px 4%;}.brand{gap:8px}.brand .logo{width:40px;height:40px}.brand h1{font-size:13px}.brand p{font-size:9px;max-width:180px}.nav-links{gap:10px;font-size:12px}.nav-links a:not(.login-btn){display:none}.nav-links .login-btn{padding:7px 15px}.hero{min-height:88vh;padding-top:100px}.hero .em{width:112px;height:112px;border-radius:25px}.cta-row{width:100%}.cta,.ghost{padding:13px 22px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><div class="logo"><img src="https://kutautara.badungkab.go.id/storage/kutautara/image/Lambang_Kabupaten_Badung.png" alt="Lambang Kabupaten Badung"></div><div><h1>SIGAP SARPRAS SD</h1><p>Pelaporan Kerusakan Sarana & Prasarana SD</p></div></div>
+  <div class="nav-links"><a href="#beranda">Beranda</a><a href="#fitur">Fitur</a><a class="login-btn" href="app.html">Login</a></div>
+</nav>
+<header class="hero" id="beranda">
+  <div class="bubble b1"></div><div class="bubble b2"></div>
+  <div class="em"><img src="https://kutautara.badungkab.go.id/storage/kutautara/image/Lambang_Kabupaten_Badung.png" alt="Lambang Kabupaten Badung"></div>
+  <h2>SIGAP <span>SARPRAS SD</span></h2>
+  <p class="sub">Aplikasi Pelaporan Kerusakan Sarana dan Prasarana Pendidikan Sekolah Dasar — cepat melapor, tepat menangani.</p>
+  <p class="tag">"Sarana Terawat, Pembelajaran Berkualitas"</p>
+  <div class="cta-row"><a class="cta" href="app.html">🚀 Masuk Sistem</a><a class="ghost" href="#fitur">Lihat Fitur</a></div>
+</header>
+<section class="stats"><div class="stats-grid">
+  <div class="stat reveal"><div class="num" id="st_sekolah">0</div><div class="lbl">Sekolah Dasar</div></div>
+  <div class="stat reveal"><div class="num" id="st_sarpras">0</div><div class="lbl">Item Sarpras</div></div>
+  <div class="stat reveal"><div class="num" id="st_laporan">0</div><div class="lbl">Laporan Kerusakan</div></div>
+  <div class="stat reveal"><div class="num" id="st_selesai">0</div><div class="lbl">Sudah Diperbaiki</div></div>
+</div></section>
+<section id="fitur">
+  <h2 class="sec-title">Fitur <span>Utama</span></h2>
+  <p class="sec-sub">Dari pelaporan kerusakan (dengan foto & kontak pelapor) hingga monitoring perbaikan.</p>
+  <div class="feat-grid">
+    <div class="feat reveal"><div class="ic">📣</div><h3>Laporan + Foto + Kontak</h3><p>Lapor kerusakan dengan foto bukti visual serta No. HP & email pelapor untuk tindak lanjut.</p></div>
+    <div class="feat reveal"><div class="ic">🛠️</div><h3>Monitoring Perbaikan</h3><p>Pantau status, petugas, tanggal, dan biaya perbaikan hingga tuntas.</p></div>
+    <div class="feat reveal"><div class="ic">🗺️</div><h3>Peta Geospasial</h3><p>Peta interaktif persebaran sekolah & kondisi sarpras (Leaflet + OpenStreetMap).</p></div>
+    <div class="feat reveal"><div class="ic">🖨️</div><h3>Export & Cetak</h3><p>Export Excel dan cetak laporan resmi sekali klik untuk arsip & pimpinan.</p></div>
+  </div>
+</section>
+<footer>Dinas Pendidikan, Kepemudaan dan Olahraga Kabupaten Badung<br>© 2026 <b>SIGAP SARPRAS SD</b> — Aksi Perubahan PKP</footer>
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbwicx0L8lGSUtnwYWLm8cXN4legFFaLYhlP_TtdtSTaymRAfw-lXn3v_2R2_fR0rXgL/exec'; // URL Web App Google Apps Script
+const SHEETS_KEY='sarpras2026';
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function cnt(id,v){const el=document.getElementById(id);let c=0;const s=Math.max(1,Math.round(v/40));const t=setInterval(()=>{c+=s;if(c>=v){c=v;clearInterval(t);}el.textContent=c;},30);}
+if(SHEETS_URL.includes('/exec')){fetch(SHEETS_URL+'?key='+SHEETS_KEY+'&action=publicStats').then(r=>r.json()).then(d=>{if(d.ok){cnt('st_sekolah',d.sekolah);cnt('st_sarpras',d.sarpras);cnt('st_laporan',d.laporan);cnt('st_selesai',d.selesai);}}).catch(()=>{});}
+else{cnt('st_sekolah',0);cnt('st_sarpras',0);cnt('st_laporan',0);cnt('st_selesai',0);}
+</script>
+</body>
+</html>
